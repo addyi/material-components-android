@@ -25,6 +25,8 @@ import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.navigation.NavigationView
@@ -95,7 +97,16 @@ sealed class ComponentViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
   class BottomNavigationComponentViewHolder(
     parent: ViewGroup
-  ) : ComponentViewHolder(inflate(parent, R.layout.component_bottom_navigation))
+  ) : ComponentViewHolder(inflate(parent, R.layout.component_bottom_navigation)) {
+
+    override fun bind(component: Component) {
+      val navigationBar: BottomNavigationView = view.findViewById(R.id.bottom_navigation_view)
+      navigationBar.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+      val badge = navigationBar.getOrCreateBadge(R.id.bottom_nav_places)
+      badge.number = 14
+      super.bind(component)
+    }
+  }
 
   class SwitchComponentViewHolder(
     parent: ViewGroup
